@@ -15,7 +15,8 @@ When **deferred tool loading** is enabled (the default), `tools/list` returns th
 
 - Unreal Editor running with the **ModelContextProtocol** plugin enabled
 - MCP server active (check Output Log for startup messages)
-- Default endpoint: `http://localhost:8000/mcp`
+
+Port, URL path, and auto-start defaults are documented user-side in the repo `README.md` under `Configuration`. The model should not assume a fixed endpoint; the connected MCP server is whatever Claude Code has registered as `unreal-mcp`.
 
 ## First-Time Setup
 
@@ -164,13 +165,7 @@ For the full per-toolset reference (every registered toolset with a short descri
 
 ## Configuration
 
-### Editor Preferences > Plugins > Model Context Protocol
-
-| Setting     | Default | Description                   |
-|-------------|---------|-------------------------------|
-| Server Port | 8000    | HTTP port for MCP server      |
-| URL Path    | /mcp    | MCP endpoint path             |
-| Auto Start  | false   | Start server on editor launch |
+User-facing settings (Editor Preferences, port, URL path, auto-start) are documented in the repo `README.md` under `Configuration`. This section lists only the console surface the model may actually drive.
 
 ### Console Commands
 
