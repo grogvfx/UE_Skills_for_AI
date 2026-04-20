@@ -16,6 +16,16 @@ Control Unreal Editor directly from Claude Code via MCP. Hundreds of tools expos
 
 1. **Unreal Editor** with the **ModelContextProtocol** plugin enabled
 2. **Editor running** - the MCP server starts automatically (or on first Claude Code tab open)
+3. **A bash shell on `PATH`** - required for the `SessionStart` hook (see **Platform Support**)
+
+## Platform Support
+
+Supported: **macOS**, **Linux**, and **Windows via Git Bash or WSL**.
+
+The `SessionStart` hook is a bash script (`hooks/unreal-context.sh`) invoked by `hooks/hooks.json` as `bash ${CLAUDE_PLUGIN_ROOT}/hooks/unreal-context.sh`. It requires a working `bash` on `PATH`:
+
+- **macOS / Linux:** works out of the box.
+- **Windows:** install **Git for Windows** (provides Git Bash) or run Claude Code under **WSL**. Native PowerShell without one of those does not have `bash` on `PATH`, and the hook will not run. The plugin's MCP tools still work; you just lose the short project-context note the hook injects at session start. There is no separate PowerShell companion script today.
 
 ## Installation
 
