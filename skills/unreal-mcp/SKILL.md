@@ -19,7 +19,7 @@ When you start work:
 2. Otherwise call `list_toolsets` to see what's registered, then `describe_toolset` on the candidates to read their tool schemas.
 3. Once `load_toolset` succeeds, the toolset's tools become native MCP tools you can invoke directly.
 
-If the discovery tools themselves aren't available — `list_toolsets` errors, or you don't see `unreal-mcp` in your MCP server list at all — the editor or its MCP server is not running. Don't bluff. Ask the user to launch the editor (and open **Tools > Claude Code** if auto-start isn't on), or follow `references/setup.md` to wire up a project that has never been configured.
+If the discovery tools themselves aren't available — `list_toolsets` errors, or you don't see `unreal-mcp` in your MCP server list at all — the editor or its MCP server is not running. Don't bluff. Ask the user to launch the editor (and run `ModelContextProtocol.StartServer` in the console if auto-start isn't on), or follow `references/setup.md` to wire up a project that has never been configured.
 
 ## Safety rules
 
@@ -130,7 +130,7 @@ This is also the right tool when a workflow doesn't fit a fixed schema — the P
 ## Reference files
 
 - `references/setup.md` — first-time MCP server setup for a project that has never been configured (`.uproject` plugin entry, auto-start `.ini`, `.mcp.json` generation).
-- `references/operations.md` — console commands, CVars, and a troubleshooting matrix for when things go wrong (port collision, missing toolsets, hangs, empty docked context).
+- `references/operations.md` — console commands, settings, and a troubleshooting matrix for when things go wrong (port collision, missing toolsets, hangs, empty docked context).
 
 ## Companion skills
 
