@@ -55,7 +55,28 @@ Good documentation is required at every level. It's not optional polish. Don't g
 
 **Toolset class**: Write 1-3 sentences describing what the toolset does and the domain it covers. An LLM will often see only the toolset name and this description without ever loading its tools, so it needs to stand on its own. Describe the domain and the kinds of operations the toolset supports. Don't enumerate tool names; the tools speak for themselves.
 
-**Each tool**: Write a clear description of what the tool does, document every parameter, and document the return value. Focus on meaning and units. Don't restate the type, default values, or anything else already captured in the signature or metadata.
+**Each tool**: Write a clear description of what the tool does, document every parameter, and document the return value. Focus on meaning and units.
+
+The test for every line: **could a competent reader infer this from the signature, names, and types alone? If yes, cut it.** LLMs over-document by default; resist it. A doc line earns its place only by stating what the code cannot. So cut signature restatement (types, defaults, optionality), usage and chaining narration (how tools combine is visible in the signatures), worked examples of the obvious, and speculation about what a field might contain instead of what it is.
+
+**Document what the code does, not why you wrote it that way.** "Iterates the subclasses directly because the asset registry misses unloaded types" is implementation rationale, not contract. Say what the tool does; cut the reasoning.
+
+Keep what can't be inferred: units, ranges, non-obvious encodings (e.g. "a single space-separated string"), what an empty or null result means, and domain meaning the name doesn't carry.
+
+```cpp
+// Over-documented: every line restates the signature or narrates usage.
+/**
+ * Runs a cheat. @param CheatName The cheat name (case-insensitive), pass it to run the cheat.
+ * @param Args Optional arguments; fill in the slots from the Args hint (e.g. "<float F>" -> "2.0",
+ *             "<float A> <float B>" -> "1 2"). Empty string for no arguments.
+ */
+// Trimmed: only the non-inferable facts remain.
+/**
+ * Runs a cheat on the local player, as if typed into the console.
+ * @param CheatName The cheat command name.
+ * @param Args Arguments as a single space-separated string. Empty for none.
+ */
+```
 
 **Structs**: Document the struct itself (what it represents and when it's used) and every field (meaning and units where applicable). UPROPERTY metadata such as `ClampMin` and `ClampMax` is extracted automatically and included in the schema. Use it rather than restating constraints in the doc comment.
 
@@ -394,5 +415,6 @@ Once the code is written and tests pass, step back and read what you've built as
 - **Duplicate functionality.** A tool that does something another tool in this toolset or another toolset entirely already does.
 - **API inconsistency.** Parameter names or types that don't match the conventions used elsewhere in the toolset.
 - **Documentation gaps.** A parameter whose description was left vague, or a class docstring that doesn't say enough to be useful on its own.
+- **Documentation that restates the code.** The more common failure: a line repeating the type, default, or call sequence; a worked example of something obvious; rationale about why the code is shaped the way it is. Re-read each comment and cut any line a reader could infer from the signature.
 
 Fix anything you find before handing off. A clean second pass is faster than a bug report later.
